@@ -27,7 +27,7 @@ header {
   padding: 20px 48px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   background: rgba(255,255,255,0.08);
@@ -45,6 +45,10 @@ header.scrolled {
   height: 150px;
   width: auto;
   transition: height 0.3s ease;
+
+header > div:first-child {
+  display: flex;
+  align-items: center;
 }
 
 header.scrolled .logo { height: 120px; }
