@@ -11,11 +11,7 @@
 <style>
 
 /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: "League Spartan", sans-serif;
@@ -26,10 +22,9 @@ body {
 /* HEADER – LIQUID GLASS */
 header {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
-  padding: 20px 48px; /* header delgado */
+  padding: 20px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,9 +47,7 @@ header.scrolled {
   transition: height 0.3s ease;
 }
 
-header.scrolled .logo {
-  height: 120px;
-}
+header.scrolled .logo { height: 120px; }
 
 .tagline {
   font-size: 14px;
@@ -152,9 +145,7 @@ header.scrolled > div {
 }
 
 /* HERO */
-.hero-space {
-  height: 260px; /* espacio para header fijo */
-}
+.hero-space { height: 260px; }
 
 .hero {
   position: relative;
@@ -204,9 +195,7 @@ header.scrolled > div {
   padding: 0 8vw 160px;
 }
 
-.project {
-  cursor: pointer;
-}
+.project { cursor: pointer; }
 
 .project img {
   width: 100%;
@@ -222,7 +211,7 @@ header.scrolled > div {
   box-shadow: 0 24px 60px rgba(0,0,0,0.25);
 }
 
-/* MODAL VIDEO */
+/* MODAL (LOCAL VIDEO) */
 .modal {
   position: fixed;
   inset: 0;
@@ -259,15 +248,12 @@ header.scrolled > div {
   </div>
 
   <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
 </header>
 
 <div class="hero-space"></div>
 
-<!-- HERO FULL WIDTH -->
 <div class="hero">
   <img src="hero.jpeg" alt="">
   <div class="fade-top"></div>
@@ -281,7 +267,6 @@ header.scrolled > div {
   <div class="menu-contact">Contact</div>
 
   <div class="menu-icons">
-    <!-- Instagram -->
     <a class="icon-btn" href="https://www.instagram.com/byalvarogl" target="_blank" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
         <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -290,7 +275,6 @@ header.scrolled > div {
       </svg>
     </a>
 
-    <!-- Email -->
     <a class="icon-btn" href="mailto:byalvarogl@gmail.com" aria-label="Email">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
         <path d="M4 6h16v12H4z"></path>
@@ -302,36 +286,40 @@ header.scrolled > div {
 
 <main class="work">
 
-  <div class="project" onclick="openVideo('videos/01-the-impossible-client.mp4')">
-    <img src="thumbnails/01-impossible-client.jpg">
+  <!-- YOUTUBE (abre en pestaña nueva para evitar error 153) -->
+  <div class="project" onclick="openYouTube('https_locked','https://youtu.be/JSVjElTaI5o')">
+    <img src="thumbnails/01-impossible-client.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/02-tomorrow-will-be-beautiful.mp4')">
-    <img src="thumbnails/02-tomorrow-beautiful.jpg">
+  <div class="project" onclick="openYouTube('https_locked','https://youtu.be/ZU-HbjapIJc')">
+    <img src="thumbnails/02-tomorrow-beautiful.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/03-estrella.mp4')">
-    <img src="thumbnails/03-estrella.jpg">
+  <div class="project" onclick="openYouTube('https_locked','https://youtu.be/9p-encpjOCo')">
+    <img src="thumbnails/03-estrella.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/04-mars-chroma.mp4')">
-    <img src="thumbnails/04-mars-chroma.jpg">
+  <!-- LOCALES (estos siguen funcionando desde tu carpeta /videos si son pequeños) -->
+  <div class="project" onclick="openLocalVideo('videos/04-mars-chroma.mp4')">
+    <img src="thumbnails/04-mars-chroma.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/05-after-effects.mp4')">
-    <img src="thumbnails/05-after-effects.jpg">
+  <div class="project" onclick="openLocalVideo('videos/05-after-effects.mp4')">
+    <img src="thumbnails/05-after-effects.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/06-devil-wears-prada.mp4')">
-    <img src="thumbnails/06-devil-poster.jpg">
+  <div class="project" onclick="openLocalVideo('videos/06-devil-wears-prada.mp4')">
+    <img src="thumbnails/06-devil-poster.jpg" alt="">
   </div>
 
-  <div class="project" onclick="openVideo('videos/07-snack-attack-foley.mp4')">
-    <img src="thumbnails/07-snack-attack.jpg">
+  <!-- YOUTUBE -->
+  <div class="project" onclick="openYouTube('https_locked','https://youtu.be/PxKSm69wyMk')">
+    <img src="thumbnails/07-snack-attack.jpg" alt="">
   </div>
 
 </main>
 
+<!-- Modal SOLO para videos locales -->
 <div class="modal" id="modal">
   <span class="close" onclick="closeVideo()">✕</span>
   <video id="modalVideo" controls autoplay></video>
@@ -340,10 +328,16 @@ header.scrolled > div {
 <script>
 function toggleMenu() {
   const menu = document.getElementById("menu");
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
 }
 
-function openVideo(src) {
+// YouTube: abre en nueva pestaña (evita error 153 de embeds)
+function openYouTube(_, url) {
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+// Local videos: modal como antes
+function openLocalVideo(src) {
   const modal = document.getElementById("modal");
   const video = document.getElementById("modalVideo");
   video.src = src;
@@ -360,11 +354,8 @@ function closeVideo() {
 
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
-  if (window.scrollY > 40) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
+  if (window.scrollY > 40) header.classList.add("scrolled");
+  else header.classList.remove("scrolled");
 });
 </script>
 
